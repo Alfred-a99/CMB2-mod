@@ -103,7 +103,7 @@ class CMB2_REST_Controller_Boxes extends CMB2_REST_Controller {
 		 * @param bool   $can_access Whether this CMB2 endpoint can be accessed.
 		 * @param object $controller This CMB2_REST_Controller object.
 		 */
-		return apply_filters( 'cmb2_api_get_boxes_permissions_check', true, $this );
+		return apply_filters( 'cmb2_api_get_boxes_permissions_check', current_user_can( 'edit_posts' ), $this );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class CMB2_REST_Controller_Boxes extends CMB2_REST_Controller {
 	 * @param  bool $can_access Whether the current request has access to view the box by default.
 	 * @return WP_Error|boolean
 	 */
-	public function get_item_permissions_check_filter( $can_access = true ) {
+	public function get_item_permissions_check_filter( $can_access = null ) {
 		/**
 		 * By default, no special permissions needed.
 		 *
@@ -177,6 +177,9 @@ class CMB2_REST_Controller_Boxes extends CMB2_REST_Controller {
 		 * @param bool   $can_access Whether this CMB2 endpoint can be accessed.
 		 * @param object $controller This CMB2_REST_Controller object.
 		 */
+		if ( null === $can_access ) {
+			$can_access = current_user_can( 'edit_posts' );
+		}
 		return $this->maybe_hook_callback_and_apply_filters( 'cmb2_api_get_box_permissions_check', $can_access );
 	}
 
