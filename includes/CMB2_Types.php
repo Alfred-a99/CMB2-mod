@@ -98,7 +98,7 @@ class CMB2_Types {
 	 */
 	protected function _render() {
 		$this->field->peform_param_callback( 'before_field' );
-		echo $this->{$this->field->type()}();
+		echo esc_html($this->{$this->field->type()}());
 		$this->field->peform_param_callback( 'after_field' );
 	}
 
@@ -437,7 +437,7 @@ class CMB2_Types {
 		$desc = sprintf( "\n" . '<%1$s class="cmb2-metabox-description">%2$s</%1$s>' . "\n", $tag, $desc );
 
 		if ( $echo ) {
-			echo $desc;
+			echo wp_kses_post($desc);
 		}
 
 		return $desc;

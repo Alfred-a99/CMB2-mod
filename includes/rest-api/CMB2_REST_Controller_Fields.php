@@ -88,7 +88,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 	 */
 	public function get_items_permissions_check( $request ) {
 		$this->initiate_rest_read_box( $request, 'fields_read' );
-		$can_access = true;
+		$can_access = current_user_can('edit_posts');
 
 		/**
 		 * By default, no special permissions needed.
@@ -163,7 +163,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 	 * @param  bool $can_access Whether the current request has access to view the field by default.
 	 * @return WP_Error|boolean
 	 */
-	public function get_item_permissions_check_filter( $can_access = true ) {
+	public function get_item_permissions_check_filter( $can_access = null  ) {
 		/**
 		 * By default, no special permissions needed.
 		 *
@@ -172,6 +172,10 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 		 * @param bool   $can_access Whether this CMB2 endpoint can be accessed.
 		 * @param object $controller This CMB2_REST_Controller object.
 		 */
+
+		if ( null === $can_access ) {
+			$can_access = current_user_can( 'edit_posts' );
+		}
 		return $this->maybe_hook_callback_and_apply_filters( 'cmb2_api_get_field_permissions_check', $can_access );
 	}
 

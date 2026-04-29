@@ -169,7 +169,7 @@ class CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		print_r( $this->value );
+		esc_html(print_r( $this->value ));
 	}
 }
 
@@ -257,7 +257,7 @@ class CMB2_Display_Multicheck extends CMB2_Field_Display {
 		$output = array();
 		foreach ( $this->value as $val ) {
 			if ( isset( $options[ $val ] ) ) {
-				$output[] = $options[ $val ];
+				$output[] = esc_html( $options[ $val ]);
 			} else {
 				$output[] = esc_attr( $val );
 			}
