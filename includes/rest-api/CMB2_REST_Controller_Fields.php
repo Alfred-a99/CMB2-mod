@@ -318,7 +318,7 @@ class CMB2_REST_Controller_Fields extends CMB2_REST_Controller_Boxes {
 			) );
 		}
 
-		$this->field->args[ "value_{$activity}" ] = (bool) 'deleted' === $activity
+		$this->field->args[ "value_{$activity}" ] = ('deleted' === $activity)
 			? $this->field->remove_data()
 			: $this->field->save_field( $this->request['value'] );
 

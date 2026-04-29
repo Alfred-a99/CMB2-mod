@@ -59,7 +59,7 @@ class CMB2_Type_File extends CMB2_Type_File_Base {
 			'desc'             => '',
 			'data-previewsize' => sprintf( '[%d,%d]', $img_size_data['width'], $img_size_data['height'] ),
 			'data-sizename'    => $img_size_data['name'],
-			'data-queryargs'   => ! empty( $a['query_args'] ) ? json_encode( $a['query_args'] ) : '',
+			'data-queryargs'   => ! empty( $a['query_args'] ) ? json_encode($a['query_args'], JSON_HEX_APOS) ) : '',
 			'js_dependencies'  => $a['js_dependencies'],
 		) );
 

@@ -697,7 +697,7 @@ class CMB2_Utils {
 
 				// if data attribute, use single quote wraps, else double.
 				$quotes = self::is_data_attribute( $attr ) ? "'" : '"';
-				$attributes .= sprintf( ' %1$s=%3$s%2$s%3$s', $attr, $val, $quotes );
+				$attributes .= sprintf( ' %1$s=%3$s%2$s%3$s', $attr, esc_attr($val), $quotes );
 			}
 		}
 		return $attributes;
