@@ -148,7 +148,7 @@ class CMB2_Show_Filters {
 			$current_page = isset( $_GET['page'] )? sanitize_text_field( wp_unslash( $_GET['page'] ) ): '';
 
 			// If there is no 'page' query var, our filter isn't applicable.
-			if ( ! isset( $current_page  ) ) {
+			if (empty($current_page)) {
 				return $display;
 			}
 

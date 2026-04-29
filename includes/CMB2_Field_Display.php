@@ -169,7 +169,7 @@ class CMB2_Field_Display {
 	 * @since 2.2.2
 	 */
 	protected function _display() {
-		esc_html(print_r( $this->value ));
+		echo esc_html(print_r($this->value, true));
 	}
 }
 

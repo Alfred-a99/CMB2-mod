@@ -98,7 +98,7 @@ class CMB2_Types {
 	 */
 	protected function _render() {
 		$this->field->peform_param_callback( 'before_field' );
-		echo esc_html($this->{$this->field->type()}());
+		echo $this->{$this->field->type()}();
 		$this->field->peform_param_callback( 'after_field' );
 	}
 
