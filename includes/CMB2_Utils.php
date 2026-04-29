@@ -569,18 +569,19 @@ class CMB2_Utils {
 	 */
 	public static function unserialize_datetime( $date_value ) {
 		$trimmed = trim( $date_value );
- 
 		if ( ! is_string( $trimmed ) || empty( $trimmed ) ) {
 			return null;
 		}
-	
 		try {
-			$datetime = unserialize( $trimmed, array( 'allowed_classes' => array( 'DateTime' ) ) );
+			// Extract date and timezone from serialized string without unserialize()
+			if ( preg_match( '/\"date\";s:\d+:\"([^"]+)\".*\"timezone\";s:\d+:\"([^"]+)\"/', $trimmed, $matches ) ) {
+				$timezone = new \DateTimeZone( $matches[2] );
+				return new \DateTime( $matches[1], $timezone );
+			}
 		} catch ( \Throwable $e ) {
 			return null;
 		}
-	
-		return $datetime instanceof DateTime ? $datetime : null;
+		return null;
 	}
 
 	/**
@@ -596,20 +597,21 @@ class CMB2_Utils {
 		if ( ! is_string( $json_string ) ) {
 			return null;
 		}
-
-		$json = json_decode( $json_string );
-
-		// Check if json decode was successful
-		if ( json_last_error() !== JSON_ERROR_NONE ) {
+		$json = json_decode( $json_string, false );
+		if ( json_last_error() !== JSON_ERROR_NONE || ! is_object( $json ) ) {
 			return null;
 		}
-
-		// If so, convert to DateTime object.
-		return self::unserialize_datetime( str_replace(
-			'stdClass',
-			'DateTime',
-			serialize( $json )
-		) );
+		try {
+			$date = isset( $json->date ) ? (string) $json->date : null;
+			$tz   = isset( $json->timezone ) ? (string) $json->timezone : null;
+			if ( ! $date || ! $tz ) {
+				return null;
+			}
+			$timezone = new \DateTimeZone( $tz );
+			return new \DateTime( $date, $timezone );
+		} catch ( \Throwable $e ) {
+			return null;
+		}
 	}
 
 	/**
