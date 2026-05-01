@@ -20,7 +20,7 @@ abstract class CMB2_Type_Multi_Base extends CMB2_Type_Base {
 	 * @return string       Generated option element html
 	 */
 	public function select_option( $args = array() ) {
-		return sprintf( "\t" . '<option value="%s" %s>%s</option>', $args['value'], selected( isset( $args['checked'] ) && $args['checked'], true, false ), $args['label'] ) . "\n";
+		return sprintf( "\t" . '<option value="%s" %s>%s</option>', esc_attr($args['value']), selected( isset( $args['checked'] ) && $args['checked'], true, false ), esc_html($args['label']) ) . "\n";
 	}
 
 	/**
@@ -41,7 +41,7 @@ abstract class CMB2_Type_Multi_Base extends CMB2_Type_Base {
 			'label' => '',
 		), $args );
 
-		return sprintf( "\t" . '<li><input%s/> <label for="%s">%s</label></li>' . "\n", $this->concat_attrs( $a, array( 'label' ) ), $a['id'], $a['label'] );
+		return sprintf( "\t" . '<li><input%s/> <label for="%s">%s</label></li>' . "\n", $this->concat_attrs( $a, array( 'label' ) ), $a['id'], esc_html($a['label']) );
 	}
 
 	/**

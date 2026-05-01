@@ -44,7 +44,7 @@ class CMB2_Type_Taxonomy_Multicheck extends CMB2_Type_Taxonomy_Base {
 	protected function list_term_input( $term, $saved_terms ) {
 		$args = array(
 			'value' => $term->slug,
-			'label' => $term->name,
+			'label' => esc_html($term->name),
 			'type'  => 'checkbox',
 			'name'  => $this->_name() . '[]',
 		);

@@ -91,7 +91,7 @@ class CMB2_Type_Taxonomy_Select extends CMB2_Type_Taxonomy_Base {
 		foreach ( $all_terms as $term ) {
 			$this->current_term = $term;
 			$options .= $this->select_option( array(
-				'label'   => $term->name,
+				'label'   => esc_html($term->name),
 				'value'   => $term->slug,
 				'checked' => $this->saved_term === $term->slug,
 			) );

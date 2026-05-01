@@ -79,7 +79,7 @@ class CMB2_Type_Taxonomy_Radio extends CMB2_Type_Taxonomy_Base {
 	protected function list_term_input( $term, $saved_term ) {
 		$args = array(
 			'value' => $term->slug,
-			'label' => $term->name,
+			'label' => esc_html($term->name),
 		);
 
 		if ( $saved_term == $term->slug ) {
